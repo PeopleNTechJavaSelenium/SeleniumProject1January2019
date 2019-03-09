@@ -2,6 +2,8 @@ package automation;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -20,18 +22,23 @@ public class TestAmazon {
 		driver.navigate().to("https://amazon.com");
 		driver.manage().window().maximize();
 	}
-	
+
+	@AfterMethod
+	public void cleanUp() {
+		driver.close();
+	}
+
 
 	@Test
 	public void test1() {
 		String title = driver.getTitle();
 		Assert.assertEquals(title, "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
 	}
-	
 
-	@AfterMethod
-	public void cleanUp() {
-		driver.close();
+	@Test
+	public void test2() {
+		driver.findElement(By.id("twotabsearchtextbox")).sendKeys("books", Keys.ENTER);
+
 	}
 
 }
